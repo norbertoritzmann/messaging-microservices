@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: order-service
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: ex.stream.in
+          binder: rabbit1
+        output:
+          destination: ex.stream.out
+          group: order
+          binder: rabbit1
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 30000
+                username: guest
+                password: guest
+  zipkin:
+    baseUrl: http://localhost:9411/
+
+server:
+  port: ${PORT:2222}
+
+
